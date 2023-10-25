@@ -8,6 +8,7 @@ public class FibonacciSequence {
 		BigInteger next;
 		BigInteger prev = new BigInteger("0");
 		
+		System.out.println("1: 0");
 		for(int i = 1; i < 50; i++) {
 			next = bigInt.add(prev);
 			prev = bigInt;
