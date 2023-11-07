@@ -1,86 +1,93 @@
-package objects;
+package shapes;
+import java.util.Scanner;
 
 public class Shapes {
 
 	public static void main(String[] args) {
-		Circle cir1 = new Circle(4.5, "Red", true);
+		Scanner input = new Scanner(System.in);
 		
-		String cir1Info = cir1.getInfo();
-		System.out.println(cir1Info);
-		System.out.println(cir1);
+		System.out.print("Enter side1: ");
+		double side1 = input.nextDouble();
 		
-		//Rectangle rec1 = new Rectangle("Blue", false, 5.6, 7.8);
-		//Rectangle rec2 = new Rectangle();
+		System.out.print("Enter side2: ");
+		double side2 = input.nextDouble();
 		
-		//System.out.println(rec1.getColor() + " " + rec1.height);
-		//System.out.println(rec2.getColor() + " " + rec2.isFilled());
+		System.out.print("Enter side3: ");
+		double side3 = input.nextDouble();
+		
+		Triangle tri = new Triangle(side1, side2, side3);
+		
+		System.out.print("Enter color: ");
+		tri.setColor(input.next());
+		
+		System.out.print("Enter 'true' or 'false' for filled");
+		tri.setFilled(input.nextBoolean());
+		
+		printTriangle(tri);
 
+	}
+	
+	public static void printTriangle(Triangle t) {
+		System.out.printf("Area: %f Perimeter: %f Color: %s Date created: %s Filled: %b\r",
+				t.getArea(), t.getPerimeter(), t.getColor(), t.getDateCreated(), t.isFilled());
 	}
 
 }
 
+interface Shape {
+	
+}
+
 class GeometricObject {
-	private boolean filled;
-	private String color;
+	protected String color;
+	protected Boolean filled;
+	protected String dateCreated;
+	protected java.util.Date date = new java.util.Date();
 	
-	GeometricObject() {
-		filled = false;
+	protected GeometricObject() {
 		color = "White";
+		filled = false;
+		dateCreated = date.toString();
 	}
 	
-	GeometricObject(String color, boolean filled) {
-		this.color = color;
-		this.filled = filled;
+	public void setColor(String str) {
+		color = str;
 	}
 	
-	void setColor(String color) {
-		this.color = color;
+	public void setFilled(boolean b) {
+		filled = b;
 	}
 	
-	void setFilled(boolean filled) {
-		this.filled = filled;
-	}
-	
-	String getColor() {
+	public String getColor() {
 		return color;
 	}
 	
-	boolean isFilled() {
-		return filled;
+	public String getDateCreated() {
+		return dateCreated;
 	}
 	
-	String getInfo() {
-		String info = String.format("Color: %s\risFilled: %b\r", color, isFilled());
-		return info;
+	public boolean isFilled() {
+		return filled;
 	}
 }
 
 class Circle extends GeometricObject {
-	double radius;
+	private double radius;
 	
-	Circle() {
-		super();
+	public Circle() {
 		radius = 1;
 	}
 	
-	Circle(double radius, String color, boolean filled) {
-		super(color, filled);
-		
+	public Circle(double radius) {
 		this.radius = radius;
 	}
 	
-	void setRadius(double radius) {
-		this.radius = radius;
+	public void setRadius(double rad) {
+		radius = rad;
 	}
 	
-	double getRadius() {
+	public double getRadius() {
 		return radius;
-	}
-	
-	@Override
-	String getInfo() {
-		String circleInfo = super.getInfo().concat(String.format("Radius: %.2f", radius));
-		return circleInfo;
 	}
 	
 	@Override
@@ -89,46 +96,57 @@ class Circle extends GeometricObject {
 	}
 }
 
-class Rectangle extends GeometricObject{
-	double width;
-	double height;
+class Rectangle extends GeometricObject {
+	private double width, height;
 	
-	Rectangle() {
-		width = 1;
-		height = 1;
+	public Rectangle() {
+		width = 0.0;
+		height = 0.0;
 	}
 	
-	Rectangle(String color, boolean filled, double width, double height) {
-		super(color, filled);
+	public Rectangle(double width, double height) {
 		this.width = width;
 		this.height = height;
 	}
+}
+
+class Triangle extends GeometricObject {
+	private double side1, side2, side3;
 	
-	void setWidth(double width) {
-		this.width = width;
+	public Triangle() {
+		side1 = 0;
+		side2 = 0;
+		side3 = 0;
 	}
 	
-	void setHeight(double height) {
-		this.height = height;
+	public Triangle(double s1, double s2, double s3) {
+		side1 = s1;
+		side2 = s2;
+		side3 = s3;
 	}
 	
-	double getWidth() {
-		return width;
+	public double getSide1() {
+		return side1;
 	}
 	
-	double getHeight() {
-		return height;
+	public double getSide2() {
+		return side2;
 	}
 	
-	void flip() {
-		double temp = width;
-		width = height;
-		height = temp;
+	public double getSide3() {
+		return side3;
+	}
+	
+	public double getArea() {
+		return (side1 + side2 + side3) / 2;
+	}
+	
+	public double getPerimeter() {
+		return side1 + side2 + side3;
 	}
 	
 	@Override
-	String getInfo() {
-		String circleInfo = super.getInfo().concat(String.format("Width: %.2f\rHeight: %.2f", width, height));
-		return circleInfo;
+	public String toString() {
+		return "Triangle: side1 = " + side1 + "side2  = " + side2 + "side3 = " + side3;
 	}
 }
