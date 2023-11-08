@@ -6,30 +6,8 @@ public class Shapes {
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		
-		System.out.print("Enter side1: ");
-		double side1 = input.nextDouble();
-		
-		System.out.print("Enter side2: ");
-		double side2 = input.nextDouble();
-		
-		System.out.print("Enter side3: ");
-		double side3 = input.nextDouble();
-		
-		Triangle tri = new Triangle(side1, side2, side3);
-		
-		System.out.print("Enter color: ");
-		tri.setColor(input.next());
-		
-		System.out.print("Enter 'true' or 'false' for filled");
-		tri.setFilled(input.nextBoolean());
-		
-		printTriangle(tri);
+		System.out.println(new Octagon(5.6).getArea());
 
-	}
-	
-	public static void printTriangle(Triangle t) {
-		System.out.printf("Area: %f Perimeter: %f Color: %s Date created: %s Filled: %b\r",
-				t.getArea(), t.getPerimeter(), t.getColor(), t.getDateCreated(), t.isFilled());
 	}
 
 }
@@ -126,7 +104,7 @@ class Octagon extends GeometricObject implements Cloneable, Comparable<Octagon> 
 	}
 	
 	public double getArea() {
-		return 2 * (1 + Math.sqrt(2) * Math.pow(sideLength, 2));
+		return (2 + (4 / Math.sqrt(2))) * sideLength * sideLength;
 	}
 	
 	@Override
