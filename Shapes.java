@@ -34,10 +34,6 @@ public class Shapes {
 
 }
 
-interface Shape {
-	
-}
-
 class GeometricObject {
 	protected String color;
 	protected Boolean filled;
@@ -71,7 +67,7 @@ class GeometricObject {
 	}
 }
 
-class Circle extends GeometricObject {
+class Circle extends GeometricObject implements Comparable<Circle> {
 	private double radius;
 	
 	public Circle() {
@@ -90,9 +86,72 @@ class Circle extends GeometricObject {
 		return radius;
 	}
 	
+	public double getArea() {
+		return (Math.PI * Math.pow(radius, 2));
+	}
+	
+	@Override
+	public int compareTo(Circle o) {
+		if (getArea() > o.getArea())
+			return 1;
+		if (getArea() < o.getArea())
+			return -1;
+		else
+			return 0;
+	}
+	
 	@Override
 	public String toString() {
 		return "Circle with a radius of " + radius;
+	}
+}
+
+class Octagon extends GeometricObject implements Cloneable, Comparable<Octagon> {
+	private double sideLength;
+	
+	public Octagon() {
+		sideLength = 1;
+	}
+	
+	public Octagon(double sideLength) {
+		this.sideLength = sideLength;
+	}
+	
+	public void setSideLength(double sideLength) {
+		this.sideLength = sideLength;
+	}
+	
+	public double getSideLength() {
+		return sideLength;
+	}
+	
+	public double getArea() {
+		return 2 * (1 + Math.sqrt(2) * Math.pow(sideLength, 2));
+	}
+	
+	@Override
+	public Object clone() {
+		try {
+			return super.clone();
+		}
+		catch (CloneNotSupportedException e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public int compareTo(Octagon o) {
+		if (getArea() > o.getArea())
+			return 1;
+		if (getArea() < o.getArea())
+			return -1;
+		else
+			return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "Octagon with a side length of " + sideLength;
 	}
 }
 
@@ -110,7 +169,7 @@ class Rectangle extends GeometricObject {
 	}
 }
 
-class Triangle extends GeometricObject {
+class Triangle extends GeometricObject implements Comparable<Triangle> {
 	private double side1, side2, side3;
 	
 	public Triangle() {
@@ -143,6 +202,16 @@ class Triangle extends GeometricObject {
 	
 	public double getPerimeter() {
 		return side1 + side2 + side3;
+	}
+	
+	@Override
+	public int compareTo(Triangle o) {
+		if (getArea() > o.getArea())
+			return 1;
+		if (getArea() < o.getArea())
+			return -1;
+		else
+			return 0;
 	}
 	
 	@Override
