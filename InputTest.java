@@ -9,11 +9,9 @@ public class InputTest {
 		
 		try (Scanner input = new Scanner(System.in);) {
 			str1 = input.nextLine();
-			cmd = new Command(str1);
 		}
-		catch (InvalidCommandFormatException e) {
-			System.out.println("Invalid command");
-		}
+
+		cmd = new Command(str1);
 		
 		System.out.println("command: " + cmd.getCommand());
 		System.out.print("args: ");
@@ -41,10 +39,10 @@ class Command {
 	public Command() {
 	}
 	
-	public Command(String input) throws InvalidCommandFormatException {
+	public Command(String input) {
 		content = new java.util.StringTokenizer(input);
-		args = new String[content.countTokens()];
 		command = content.nextToken();
+		args = new String[content.countTokens()];
 		
 		for (int i = 0; i < args.length; i++) {
 			args[i] = content.nextToken();
@@ -58,10 +56,12 @@ class Command {
 				Integer.parseInt(arg);
 				Double.parseDouble(arg);
 			}
-			catch (Exception e) {
-				System.out.println(e);
+			catch (NumberFormatException e) {
 				argTypes[i] = "String";
 			}
+			
+			if (arg == null)
+				argTypes[i] = null;
 			
 		}
 	}
