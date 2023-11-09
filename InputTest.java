@@ -13,19 +13,7 @@ public class InputTest {
 
 		cmd = new Command(str1);
 		
-		System.out.println("command: " + cmd.getCommand());
-		System.out.print("args: ");
-		
-		for (String str: cmd.getArgs()) {
-			System.out.print(str + " ");
-		}
-		
-		System.out.println();
-		System.out.print("arg types: ");
-		
-		for (String str: cmd.getArgTypes()) {
-			System.out.print(str + " ");
-		}
+		System.out.println(cmd.toString());
 
 	}
 
@@ -76,6 +64,22 @@ class Command {
 	
 	public String[] getArgTypes() {
 		return argTypes;
+	}
+	
+	@Override
+	public String toString() {
+		String args = "";
+		String argTypes = "";
+		
+		for (String str: getArgs()) {
+			args.concat(str + " ");
+		}
+		
+		for (String str: getArgTypes()) {
+			argTypes.concat(str + " ");
+		}
+		
+		return String.format("commmand: %s\r\nargs: %s\r\narg types: %s", command, args, argTypes);
 	}
 }
 
