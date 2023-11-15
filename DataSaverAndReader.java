@@ -7,24 +7,30 @@ public class DataSaverAndReader {
 
 	public static void main(String[] args) throws IOException {
 		File file = new File("SaveFile.txt");
-		StringBuilder fileContents = new StringBuilder();
+		String fileContents = new String();
 		
 		if (file.createNewFile())
 			System.out.println("Save file created.");
 		else
 			System.out.println("Existing save file found.");
 		
-		try (
-		Scanner read = new Scanner(file);
-		PrintWriter write = new PrintWriter(file);
+		try (PrintWriter write = new PrintWriter(file);
 		) {
-			write.print("A");
+			for (int i = 0; i < 100; i++) {
+				write.print("A");
+			}
+			
+		}
+		
+		try (Scanner read = new Scanner(file);
+		) {
 			while (read.hasNext()) {
-				fileContents.append(read.next());
+				fileContents = fileContents.concat(read.next());
 			}
 			
 			System.out.println(fileContents);
 		}
+		
 
 	}
 
